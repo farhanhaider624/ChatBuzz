@@ -5,9 +5,7 @@ import {
   VStack,
 } from "@chakra-ui/react";
 import { FormControl, FormLabel, Input } from "@chakra-ui/react";
-import { useToast } from "@chakra-ui/react";
 import React, { useState } from "react";
-import axios from "axios";
 
 const Signup = () => {
   const [show, setShow] = useState(false);
