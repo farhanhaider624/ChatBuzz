@@ -65,7 +65,7 @@ const Login = () => {
       setLoading(false);
       // it will add data to history and will render route at url /chats
       history.push("/chats");
-      // window.location.href = "/chats"
+      window.location.href = "/chats"
     } catch (error) {
       toast({
         title: "Invalid Email or Password",
