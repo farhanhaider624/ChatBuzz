@@ -33,18 +33,10 @@ const UpdateGroupChatModal = ({ fetchAgain, setFetchAgain, fetchMessages }) => {
   const { user, selectedChat, setSelectedChat } = ChatState();
   //  console.log(user);
 
-  const handleRemove = async (userToBeRemoved) => {
+  const handleRemove = async (user1) => {
     // console.log("user to be deleted", user.id);
 
-    const removableuserid =
-      userToBeRemoved._id === undefined
-        ? userToBeRemoved.id
-        : userToBeRemoved._id;
-
-    if (
-      selectedChat.groupAdmin._id !== user.id &&
-      removableuserid !== user.id
-    ) {
+    if (selectedChat.groupAdmin._id !== user.id && user1._id !== user._id) {
       toast({
         title: "Only admins can remove someone!",
         status: "error",
@@ -66,12 +58,12 @@ const UpdateGroupChatModal = ({ fetchAgain, setFetchAgain, fetchMessages }) => {
         "/api/chat/groupremove",
         {
           chatId: selectedChat?._id,
-          userId: removableuserid,
+          userId: user1._id,
         },
         config
       );
 
-      removableuserid === user.id ? setSelectedChat() : setSelectedChat(data);
+      user1._id === user._id ? setSelectedChat() : setSelectedChat(data);
 
       setFetchAgain(!fetchAgain);
       fetchMessages();
@@ -167,8 +159,8 @@ const UpdateGroupChatModal = ({ fetchAgain, setFetchAgain, fetchMessages }) => {
     }
   };
 
-  const handleAddUser = async (userToBeAdded) => {
-    if (selectedChat?.users?.find((u) => u._id === userToBeAdded._id)) {
+  const handleAddUser = async (user1) => {
+    if (selectedChat?.users?.find((u) => u._id === user1._id)) {
       toast({
         title: "User Already in group!",
         status: "error",
@@ -206,13 +198,14 @@ const UpdateGroupChatModal = ({ fetchAgain, setFetchAgain, fetchMessages }) => {
         "api/chat/groupadd",
         {
           chatId: selectedChat?._id,
-          userId: userToBeAdded?._id,
+          userId: user1?._id,
         },
         config
       );
-
+      user1._id === user._id ? setSelectedChat() : setSelectedChat(data);
       setSelectedChat(data);
       setFetchAgain(!fetchAgain);
+      fetchMessages();
       setLoading(false);
     } catch (error) {
       toast({
@@ -260,7 +253,7 @@ const UpdateGroupChatModal = ({ fetchAgain, setFetchAgain, fetchMessages }) => {
                 <UserBadgeItem
                   key={u._id}
                   user={u}
-                  //  admin={selectedChat.groupAdmin}
+                  admin={selectedChat.groupAdmin}
                   handleFunction={() => handleRemove(u)}
                 />
               ))}

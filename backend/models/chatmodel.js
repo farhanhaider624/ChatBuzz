@@ -4,7 +4,7 @@ const chatModel = mongoose.Schema(
     {
         chatName:{
             type:String,
-            trim:true,
+            required:true,
         },
         isGroupChat:{
             type:Boolean,
@@ -13,16 +13,16 @@ const chatModel = mongoose.Schema(
         users:[
             {
                 type:mongoose.Schema.Types.ObjectId,
-                ref:'User',
+                ref:"User",
             },
         ],
         latestMessage:{
             type:mongoose.Schema.Types.ObjectId,
-            ref:'Message',
+            ref:"Message",
         },
         groupAdmin:{
             type:mongoose.Schema.Types.ObjectId,
-            ref:'User'
+            ref:"User",
         },
     },{
         timestamps:true,
