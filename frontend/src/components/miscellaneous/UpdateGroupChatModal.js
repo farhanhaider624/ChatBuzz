@@ -171,10 +171,10 @@ const UpdateGroupChatModal = ({ fetchAgain, setFetchAgain, fetchMessages }) => {
       return;
     }
 
-    //  console.log("admin id " , selectedChat?.groupAdmin._id);
-    //  console.log("user id", user.id);
+  //  console.log("admin id " , selectedChat?.groupAdmin._id);
+  //     console.log("user id", user._id);
 
-    if (selectedChat?.groupAdmin._id !== user.id) {
+    if (selectedChat?.groupAdmin._id !== user._id) {
       toast({
         title: "Only admins can add someone!",
         status: "error",

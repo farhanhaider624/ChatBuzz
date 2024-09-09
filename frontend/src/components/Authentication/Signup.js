@@ -17,13 +17,13 @@ const Signup = () => {
   const [password, setPassword] = useState();
   const [confirmpassword, setConfirmpassword] = useState();
   const [pic, setPic] = useState();
-  const [loading, setLoading] = useState(false);
+  const [picLoading, setPicLoading] = useState(false);
   const toast = useToast();
   const history = useHistory();
 
   const handleClick = () => setShow(!show);
   const postDetails = (pics) => {
-    setLoading(true);
+    setPicLoading(true);
     if (pics === undefined) {
       toast({
         title: "Please Select an Image!",
@@ -49,11 +49,11 @@ const Signup = () => {
         .then((data) => {
           setPic(data?.url?.toString());
           console.log(data?.url?.toString());
-          setLoading(false);
+          setPicLoading(false);
         })
         .catch((err) => {
           console.log(err);
-          setLoading(false);
+          setPicLoading(false);
         });
     } else {
       toast({
@@ -63,12 +63,12 @@ const Signup = () => {
         isClosable: true,
         position: "bottom",
       });
-      setLoading(false);
+      setPicLoading(false);
       return;
     }
   };
   const submitHandler = async () => {
-    setLoading(true);
+    setPicLoading(true);
     if (!name || !email || !password || !confirmpassword) {
       toast({
         title: "Please Fill all the Feilds",
@@ -77,7 +77,7 @@ const Signup = () => {
         isClosable: true,
         position: "bottom",
       });
-      setLoading(false);
+      setPicLoading(false);
       return;
     }
     if (password !== confirmpassword) {
@@ -88,7 +88,7 @@ const Signup = () => {
         isClosable: true,
         position: "bottom",
       });
-      setLoading(false);
+      setPicLoading(false);
       return;
     }
 
@@ -116,7 +116,7 @@ const Signup = () => {
       // set data to local storage
       localStorage.setItem("userInfo", JSON.stringify(data));
       // console.log(data);
-      setLoading(false);
+      setPicLoading(false);
       // it will add data to history and will render route at url /chats
       history.push("/chats");
 
@@ -132,7 +132,7 @@ const Signup = () => {
         isClosable: true,
         position: "bottom",
       });
-      setLoading(false);
+      setPicLoading(false);
     }
   };
 
@@ -201,7 +201,7 @@ const Signup = () => {
         width="100%"
         style={{ marginTop: 15 }}
         onClick={submitHandler}
-        isLoading={loading}
+        isLoading={picLoading}
       >
         Sign Up
       </Button>

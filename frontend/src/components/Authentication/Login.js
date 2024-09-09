@@ -8,7 +8,7 @@ import {
 import { FormControl, FormLabel, Input } from "@chakra-ui/react";
 import React, { useState } from "react";
 import axios from "axios";
-import { useHistory } from "react-router-dom/cjs/react-router-dom.min";
+import { useHistory } from "react-router-dom";
 
 const Login = () => {
   const [show, setShow] = useState(false);
@@ -83,9 +83,10 @@ const Login = () => {
       <FormControl id="email" isRequired>
         <FormLabel>Email</FormLabel>
         <Input
+        value={email}
+        type="email"
           placeholder="Enter Your Email"
           onChange={(e) => setEmail(e?.target?.value)}
-          value={email}
         />
       </FormControl>
 

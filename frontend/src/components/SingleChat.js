@@ -11,21 +11,13 @@ import axios from "axios";
 import { FormControl } from "@chakra-ui/form-control";
 import { Input } from "@chakra-ui/input";
 import "./styles.css";
+
 import io from "socket.io-client"
 import Lottie from 'react-lottie'
 import animationData from '../animations/typing.json'
 
 const  ENDPOINT = "http://localhost:8000";
 var socket, selectedChatCompare;
-
-const defaultOptions = {
-  loop:true,
-  autoplay:true,
-  animationData:animationData,
-  rendererSettings:{
-    preserveAspectRatio: "xMidYMid slice",
-  }
-}
 
 
 const SingleChat = ({ fetchAgain, setFetchAgain }) => {
@@ -36,9 +28,19 @@ const SingleChat = ({ fetchAgain, setFetchAgain }) => {
   const [typing, setTyping] = useState(false);
   const [isTyping, setIsTyping] = useState(false);
 
-  const { user, selectedChat, setSelectedChat, notification, setNotification } = ChatState();
   const toast = useToast();
+  
+  const defaultOptions = {
+    loop: true,
+    autoplay: true,
+    animationData: animationData,
+    rendererSettings: {
+      preserveAspectRatio: "xMidYMid slice",
+    },
+  };
 
+  const { user, selectedChat, setSelectedChat, notification, setNotification } = ChatState();
+  
   const fetchMessages = async () => {
     if (!selectedChat) return;
 
@@ -180,7 +182,7 @@ const SingleChat = ({ fetchAgain, setFetchAgain }) => {
               icon={<ArrowBackIcon />}
               onClick={() => setSelectedChat("")}
             />
-            {!selectedChat.isGroupChat ? (
+            {messages && (!selectedChat.isGroupChat ? (
               <>
                 {getSender(user, selectedChat.users)}
                 <ProfileModal user={getSenderFull(user, selectedChat.users)} />
@@ -196,7 +198,7 @@ const SingleChat = ({ fetchAgain, setFetchAgain }) => {
                   />
                 }
               </>
-            )}
+            ))}
           </Text>
           <Box
             display="flex"
